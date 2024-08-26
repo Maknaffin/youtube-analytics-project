@@ -20,9 +20,6 @@ class Channel:
 
     def print_info(self) -> None:
         """Выводит в консоль информацию о канале."""
-        # api_key: str = os.getenv('YT_API_KEY')
-        # youtube = build('youtube', 'v3', developerKey=self.api_key)
-        # channel = self.get_service().channels().list(id=self.__channel_id, part='snippet,statistics').execute()
         print(json.dumps(self.get_channel_info(), indent=2, ensure_ascii=False))
 
     @staticmethod
@@ -53,3 +50,36 @@ class Channel:
     def get_channel_info(self):
         """Возвращает json информацию о канале."""
         return self.get_service().channels().list(id=self.__channel_id, part='snippet,statistics').execute()
+
+    def __str__(self):
+        return f'{self.title} ({self.url})'
+
+    def __add__(self, other):
+        """Магический метод +"""
+        return self.sub_count + other.sub_count
+
+    def __sub__(self, other):
+        """Магический метод -"""
+        return self.sub_count - other.sub_count
+
+    def __gt__(self, other):
+        """Магический метод >"""
+        return self.sub_count > other.sub_count
+
+    def __ge__(self, other):
+        """Магический метод >="""
+        return self.sub_count >= other.sub_count
+
+    def __lt__(self, other):
+        """Магический метод <"""
+        return self.sub_count < other.sub_count
+
+    def __le__(self, other):
+        """Магический метод <="""
+        return self.sub_count <= other.sub_count
+
+    def __eq__(self, other):
+        """Магический метод =="""
+        return self.sub_count == other.sub_count
+
+
